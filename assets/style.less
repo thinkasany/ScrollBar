@@ -1,0 +1,108 @@
+@import './index.less';
+
+// reset
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  margin-bottom: 10px;
+}
+
+// scrollbar.less
+@namespace: el;
+
+// CSS 变量定义
+:root {
+  --el-scrollbar-bg-color: rgba(144, 147, 153, 0.3);
+  --el-scrollbar-hover-bg-color: rgba(144, 147, 153, 0.5);
+  --el-scrollbar-opacity: 0.8;
+  --el-scrollbar-hover-opacity: 1;
+  --el-transition-duration: 0.3s;
+}
+
+// 主要样式
+.@{namespace}-scrollbar {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+
+  // wrap 元素
+  &__wrap {
+    overflow: auto;
+    height: 100%;
+
+    // hidden-default 修饰符
+    &--hidden-default {
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  // thumb 元素
+  &__thumb {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    cursor: pointer;
+    border-radius: inherit;
+    background-color: var(--el-scrollbar-bg-color);
+    transition: var(--el-transition-duration) background-color;
+    opacity: var(--el-scrollbar-opacity);
+
+    &:hover {
+      background-color: var(--el-scrollbar-hover-bg-color);
+      opacity: var(--el-scrollbar-hover-opacity);
+    }
+  }
+
+  // bar 元素
+  &__bar {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    z-index: 1;
+    border-radius: 4px;
+
+    // vertical 状态
+    &.is-vertical {
+      width: 6px;
+      top: 2px;
+
+      > div {
+        width: 100%;
+      }
+    }
+
+    // horizontal 状态
+    &.is-horizontal {
+      height: 6px;
+      left: 2px;
+
+      > div {
+        height: 100%;
+      }
+    }
+  }
+}
+
+// fade 动画
+.@{namespace}-scrollbar-fade {
+  &-enter-active {
+    transition: opacity 340ms ease-out;
+  }
+
+  &-leave-active {
+    transition: opacity 120ms ease-out;
+  }
+
+  &-enter-from,
+  &-leave-active {
+    opacity: 0;
+  }
+}
